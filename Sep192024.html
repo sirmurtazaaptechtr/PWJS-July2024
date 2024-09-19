@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome - Magic Notes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <!-- Brand/logo -->
+            <a class="navbar-brand" href="#">Magic Notes</a>
+            <!-- Button for toggling the collapsed navigation on smaller screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collapsible content in the navbar -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <!-- Home link (active) -->
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                </ul>
+                <!-- Search form -->
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <div class="container my-3">
+        <!-- Page title -->
+        <h1>Welcome To Magic Notes</h1>
+
+        <!-- Add note card -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Card title -->
+                <h5 class="card-title">Add a note</h5>
+
+                <form id="noteForm" class="needs-validation" novalidate>
+                    <!-- Input field for note title -->
+                    <div class="mb-3">
+                        <label for="noteTitle" class="form-label">Title</label>
+                        <!-- Text input for the note's title; 'required' makes this field mandatory -->
+                        <input type="text" class="form-control" id="noteTitle" placeholder="My Note" required>
+                        <div class="invalid-feedback">Please provide a title for your note.</div>
+                    </div>
+                
+                    <!-- Textarea for note description -->
+                    <div class="mb-3">
+                        <label for="addTxt" class="form-label">Description</label>
+                        <!-- Textarea input for the note's description; 'required' makes this field mandatory -->
+                        <textarea class="form-control" id="addTxt" rows="3" placeholder="Note description goes here ..." required></textarea>
+                        <div class="invalid-feedback">Please provide a description for your note.</div>
+                    </div>
+                
+                    <!-- Radio buttons for note priority -->
+                    <div class="mb-3">
+                        <label for="notePriority" class="form-label">Priority</label>
+                
+                        <!-- High priority option -->
+                        <div id="notePriority" class="form-check">
+                            <!-- Radio button for High priority, default selected (checked) -->
+                            <input class="form-check-input" type="radio" name="priority" id="pHigh" value="bg-danger" required checked>
+                            <label class="form-check-label" for="pHigh">
+                                <span class="text-danger">High</span>
+                            </label>
+                        </div>
+                
+                        <!-- Moderate priority option -->
+                        <div class="form-check">
+                            <!-- Radio button for Moderate priority -->
+                            <input class="form-check-input" type="radio" name="priority" id="pModrate" value="bg-warning" required>
+                            <label class="form-check-label" for="pModrate">
+                                <span class="text-warning">Moderate</span>
+                            </label>
+                        </div>
+                
+                        <!-- Low priority option -->
+                        <div class="form-check">
+                            <!-- Radio button for Low priority -->
+                            <input class="form-check-input" type="radio" name="priority" id="pLow" value="bg-primary" required>
+                            <label class="form-check-label" for="pLow">
+                                <span class="text-primary">Low</span>
+                            </label>
+                        </div>
+                
+                        <div class="invalid-feedback">Please select a priority level.</div>
+                    </div>
+                
+                    <!-- Button to add the note -->
+                    <button class="btn btn-primary" id="addBtn">Add Note</button>
+                </form>
+                
+            </div>
+        </div>
+
+        <!-- Divider between sections -->
+        <hr>
+
+        <!-- Section to display user notes -->
+        <h1>Your Notes</h1>
+        <hr>
+
+        <!-- Container to display notes in a grid layout -->
+        <div id="notes" class="row container-fluid"></div>
+    </div>
+    <!-- BootStrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- JavaScript -->
+    <script>
+        // Add Bootstrap validation to the form
+        (function() {
+            'use strict';
+
+            // Fetch the form element
+            var form = document.getElementById('noteForm');
+
+            // Event listener to validate the form on submit
+            form.addEventListener('submit', function(event) {
+                // Check if the form is valid
+                if (!form.checkValidity()) {
+                    // If the form is invalid, prevent submission and display validation feedback
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                // Add Bootstrap's validation classes
+                form.classList.add('was-validated');
+            }, false);
+        })();
+
+        // Get elements from the document
+        const noteTitle = document.getElementById('noteTitle'); // Input for the note's title
+        const addTxt = document.getElementById('addTxt'); // Input for the note's text
+        const addBtn = document.getElementById('addBtn'); // Button to add a note
+        const notes = document.getElementById('notes'); // Container to display notes
+        let notesArr = []; // Create an empty array to store notes
+
+        // Function to delete a note
+        function deleteNote(index) {
+            // Get saved notes from localStorage
+            let saveNotesJSON = localStorage.getItem("notes");
+
+            // If there are notes saved
+            if (saveNotesJSON != null) {
+                // Parse them into the notesArr array
+                notesArr = JSON.parse(saveNotesJSON);
+
+                // Remove the note at the given index from the array
+                notesArr.splice(index, 1);
+
+                // Get the updated number of notes after deletion
+                let noteCount = notesArr.length;
+
+                // If there are no more notes left after deletion
+                if (noteCount == 0) {
+                    // Remove the "notes" item from localStorage since it's empty
+                    localStorage.removeItem("notes");
+                } else {
+                    // If there are still notes, update localStorage with the modified notesArr
+                    localStorage.setItem("notes", JSON.stringify(notesArr));
+                }
+
+                // Refresh the displayed notes on the page
+                disp_notes();
+            }
+        }
+
+        // Function to display notes
+        function disp_notes() {
+            // Get saved notes from localStorage as a JSON string
+            let saveNotesJSON = localStorage.getItem("notes");
+
+            // Check if there are any saved notes
+            if (saveNotesJSON == null) {
+                // If no notes are saved, display a message
+                notes.innerHTML = `
+                <div class="alert alert-info" role="alert">
+                    Nothing to show!
+                </div>`;
+            } else {
+                // If notes are found, parse the JSON string into a JavaScript array
+                notesArr = JSON.parse(saveNotesJSON);
+
+                // Clear the notes container and add a heading
+                notes.innerHTML = `<h2>All Notes</h2>`;
+
+                // Loop through each note and display it as a card
+                notesArr.forEach(function (note, index) {
+                    notes.innerHTML += `
+                    <div class="col-lg-3 col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                ${note.title} <!-- Note title in the card header -->
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${note.title}</h5> <!-- Note title inside the card -->
+                                <p class="card-text">${note.text}</p> <!-- Note text inside the card -->
+                                <button type="button" class="btn btn-danger" onclick="deleteNote(${index})">Delete</button> <!-- Delete button -->
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                2 days ago <!-- Placeholder for when the note was created -->
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+            }
+        }
+
+        // Call the function to display notes on page load
+        disp_notes();
+
+        // Event listener for the "Add Note" button
+        addBtn.addEventListener("click", function () {
+            // Get the values from the form inputs
+            let titleValue = noteTitle.value; // Get the note title
+            let textValue = addTxt.value; // Get the note text
+
+            // Retrieve any previous notes from localStorage
+            let saveNotesJSON = localStorage.getItem("notes");
+
+            // If there are previous notes, parse them into the notesArr array
+            if (saveNotesJSON != null) {
+                notesArr = JSON.parse(saveNotesJSON); // Convert JSON string to array
+            }
+
+            // Append the new note to the notesArr array
+            notesArr.push({ title: titleValue, text: textValue });
+
+            // Save the updated notesArr to localStorage as a JSON string
+            localStorage.setItem("notes", JSON.stringify(notesArr));
+
+            // Display the updated notes on the page
+            disp_notes();
+        });
+    </script>
+</body>
+
+</html>

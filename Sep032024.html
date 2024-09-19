@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        const regexPattern1 = /^[A-Za-z]\w*@\w+.\w+$/i;
+        const regexPattern2 = /^\d{5}-\d{7}-\d{1}$/i;
+        const regexPattern3 = /^[A-Za-z ]+$/i;
+
+        console.log(regexPattern1.test('syed_m_hussain@hotmail.com'));
+        console.log(regexPattern2.test('42101-1156917-9'));
+        console.log(regexPattern3.test('Syed Sami Ali'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="d1"></div>
+
+    <script>
+        const d1 = document.getElementById('d1');
+        const names = ["Ahsan","Nazar","Azib","Ansharah","Hussain","Rafay"];
+        const students = [
+            {name:"Azib",age:20,siblings:5,salary:30000,gender:"male"},
+            {name:"Rayan", age:18, siblings:4, salary:1330000, gender:"male"},
+            {name:"Ashar", age:10, siblings:2, salary:1305000, gender:"male"},
+            {name:"Ansharah", age:20, siblings:2, salary:1505000, gender:"female"},
+            {name:"Ahsan", age:24, siblings:3, salary:1555000, gender:"male"},
+            {name:"Ahmed", age:21, siblings:3, salary:1755000, gender:"male"},
+            {name:"Nazar", age:20, siblings:3, salary:2755000, gender:"male"},
+            {name:"Abdul Rafay", age:17, siblings:4, salary:3755000, gender:"male"},
+            {name:"Sami", age:25, siblings:5, salary:13755000, gender:"male"},
+            {name:"Hussain", age:14, siblings:1, salary:155000, gender:"male"},
+            {name:"Junaid", age:15, siblings:2, salary:175000, gender:"male"},
+            {name:"Hussain Khanani", age:17, siblings:2, salary:175000, gender:"male"}
+        ];
+
+        for(let i = 1;i <= 5;i++) {
+            d1.innerHTML +=`<p>${i}. My name is Hussain.</p>`;
+        }
+        // array.length will return the number of element in an array
+        for(let i = 0;i < names.length;i++) {
+            d1.innerHTML +=`<p>${i+1}. Hi, My name is  ${names[i]}.</p>`;
+        }
+        // forEach is specilized loop for an array
+        names.forEach(function (name,index) {
+            d1.innerHTML +=`<p>${index+1}. Hi, My name is  ${name}.</p>`;
+        });
+
+        students.forEach(function (value,index) {
+            d1.innerHTML += `<p>${index+1}. Dear ${value.name}, you are ${value.age} years old ${value.gender}. You have ${value.siblings} siblings and you are earning USD${value.salary}/=</p>`;
+        });
+
+        for(let i = 0; i < students.length; i++) {
+            d1.innerHTML += `<p>${i+1}. Dear ${students[i].name}, you are ${students[i].age} years old ${students[i].gender}. You have ${students[i].siblings} siblings and you are earning USD${students[i].salary}/=</p>`;
+        }
+    </script>
+</body>
+</html>
